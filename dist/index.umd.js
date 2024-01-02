@@ -1,8 +1,8 @@
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('react'), require('react/jsx-runtime')) :
-  typeof define === 'function' && define.amd ? define(['react', 'react/jsx-runtime'], factory) :
-  (global = global || self, global.reactEmojiFlag = factory(global.react, global.jsx));
-})(this, (function (React, jsxRuntime) {
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('react'), require('react/jsx-runtime')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'react', 'react/jsx-runtime'], factory) :
+  (global = global || self, factory(global.reactEmojiFlag = {}, global.react, global.jsx));
+})(this, (function (exports, React, jsxRuntime) {
   function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
   var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
@@ -79,7 +79,9 @@
     });
   };
 
-  return CountryFlag;
+  exports["default"] = CountryFlag;
+  exports.flag = flag;
+  exports.useCountryFlag = useCountryFlag;
 
 }));
 //# sourceMappingURL=index.umd.js.map

@@ -6,11 +6,10 @@ let hasEffectRun = false;
 
 const nativeFlag = () => {
   const userAgent = window.navigator.userAgent;
-  
   return userAgent.indexOf("Win") === -1;
 }
 
-const useCountryFlag = (options) => {
+export const useCountryFlag = (options) => {
   React.useEffect(() => {
     if (hasEffectRun) {
       // Run the effect logic only once
@@ -51,7 +50,7 @@ const useCountryFlag = (options) => {
   }, []);
 };
 
-const flag = (isoCode) => {
+export const flag = (isoCode) => {
   const offset = 127397;
   if (!isoCode || isoCode.toUpperCase() === "ZZ") return "";
   return isoCode

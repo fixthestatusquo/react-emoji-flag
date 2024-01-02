@@ -77,5 +77,7 @@ var CountryFlag = function CountryFlag(props) {
   });
 };
 
-module.exports = CountryFlag;
+exports["default"] = CountryFlag;
+exports.flag = flag;
+exports.useCountryFlag = useCountryFlag;
 //# sourceMappingURL=index.cjs.map
