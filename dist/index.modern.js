@@ -1,2 +1,58 @@
-const t="https://country-flag.proca.app/font/TwemojiCountryFlags.woff2",n=()=>{React.useEffect(()=>`<style>\n@font-face {\n  font-family: 'Twemoji Country Flags';\n  unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067, U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F;\n  src: url(${t}) format('woff2');\n}\n\n.country-flag {\n  fontFamily: "'Twemoji Country Flags'"\n}\n</style>`,[t])},o=(t,n)=>{let o="";return t&&"ZZ"!==t.toUpperCase()?(t.toUpperCase().split("").forEach(t=>o+=String.fromCodePoint(t.charCodeAt(0)+127397)),o):""},e=t=>{n();const o=emoji(t.country);return h("span",{className:"country-flag",title:t.title||t.country},o)};export{e as CountryFlag,o as flag,n as useCountryFlag};
+import React from 'react';
+import { jsx } from 'react/jsx-runtime';
+
+const fontUrl = "https://country-flag.proca.app/font/TwemojiCountryFlags.woff2";
+const fontName = "countryFlags";
+let hasEffectRun = false;
+const nativeFlag = () => {
+  const userAgent = window.navigator.userAgent;
+  return userAgent.indexOf("Win") === -1;
+};
+const useCountryFlag = options => {
+  React.useEffect(() => {
+    if (hasEffectRun) {
+      // Run the effect logic only once
+      return;
+    }
+    hasEffectRun = true;
+    const css = `.${options.className} {font-family: "'${fontName}'"}`;
+    const loadFont = async () => {
+      const customFont = new FontFace(fontName, "url(" + fontUrl + ")", {
+        unicodeRange: "U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067, U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F"
+      });
+      try {
+        await customFont.load();
+        document.fonts.add(customFont);
+      } catch (_unused) {
+        console.log("can't load font");
+      }
+    };
+    if (nativeFlag()) return;
+    loadFont();
+    const style = document.createElement("style");
+    style.textContent = css;
+    style.id = "react-emoji-flag";
+    document.head.appendChild(style);
+  }, []);
+};
+const flag = isoCode => {
+  const offset = 127397;
+  if (!isoCode || isoCode.toUpperCase() === "ZZ") return "";
+  return isoCode.toUpperCase().replace(/./g, char => String.fromCodePoint(char.charCodeAt(0) + offset));
+  // U+1F6A9
+};
+const CountryFlag = props => {
+  const className = props.className || "country-flag";
+  useCountryFlag({
+    className: className
+  }); // load the font and create style if needed
+  const d = flag(props.countryCode);
+  return /*#__PURE__*/jsx("span", {
+    className: className,
+    title: props.title || props.countryCode,
+    children: d
+  });
+};
+
+export { CountryFlag as default };
 //# sourceMappingURL=index.modern.js.map

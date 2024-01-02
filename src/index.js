@@ -1,49 +1,74 @@
-//import {useEffect} from 'react';
+import React from "react";
 const fontUrl = "https://country-flag.proca.app/font/TwemojiCountryFlags.woff2";
+const fontName = "countryFlags";
+let hasEffectRun = false;
 
-export const useCountryFlag = () => {
 
-  React.useEffect ( () => {
-    const css = 
-`<style>
-@font-face {
-  font-family: 'Twemoji Country Flags';
-  unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067, U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F;
-  src: url(${fontUrl}) format('woff2');
+const nativeFlag = () => {
+  const userAgent = window.navigator.userAgent;
+  
+  return userAgent.indexOf("Win") === -1;
 }
 
-.country-flag {
-  fontFamily: "'Twemoji Country Flags'"
-}
-</style>`;
-    return css;
-  }, [fontUrl]);
+const useCountryFlag = (options) => {
+  React.useEffect(() => {
+    if (hasEffectRun) {
+      // Run the effect logic only once
+      return;
+    }
+    hasEffectRun = true;
+    const css = `.${options.className} {font-family: "'${fontName}'"}`;
+
+    const loadFont = async () => {
+
+      const customFont = new FontFace(
+        fontName,
+        "url(" + fontUrl + ")",
+        {
+          unicodeRange:
+            "U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067, U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F",
+        }
+      );
+
+
+      try {
+        await customFont.load();
+        document.fonts.add(customFont);
+      } catch  {
+        console.log("can't load font");
+      }
+    };
+
+
+    if (nativeFlag()) 
+      return;
+
+    loadFont();
+    const style = document.createElement("style");
+    style.textContent = css;
+    style.id = "react-emoji-flag";
+    document.head.appendChild(style);
+  }, []);
 };
 
-export const flag = (isoCode, options) => {
+const flag = (isoCode) => {
   const offset = 127397;
-  let emoji = "";
-
   if (!isoCode || isoCode.toUpperCase() === "ZZ") return "";
-
-  isoCode
+  return isoCode
     .toUpperCase()
-    .split("")
-    .forEach(
-      (char) => (emoji += String.fromCodePoint(char.charCodeAt(0) + offset))
-    );
-
-  return emoji;
+    .replace(/./g, (char) => String.fromCodePoint(char.charCodeAt(0) + offset));
+// U+1F6A9
 };
 
-export const CountryFlag = (props) => {
-  useCountryFlag ();
-  const d = emoji(props.country);
+const CountryFlag = (props) => {
+  const className = props.className || "country-flag";
+  useCountryFlag({className:className}); // load the font and create style if needed
+  const d = flag(props.countryCode);
   return (
-    <span className="country-flag" title={props.title || props.country}>
+    <span className={className} title={props.title || props.countryCode}>
       {d}
     </span>
   );
 };
 
-//export default CountryFlag;
+export default CountryFlag;

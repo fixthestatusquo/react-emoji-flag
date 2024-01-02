@@ -1,12 +1,27 @@
-# country-flag
+# react-emoji-flag
+
 display countries as flag. no need for external pics or svg, even on window.
 
-The most efficient way to display countries as flag, using unicode directly on all the good operating systems, and loading an external font on window that doesn't display them by default
+The most efficient way to display countries as flag: using unicode directly on all modern operating systems.
 
-on React:
+"🇨🇭" if this looks like a flag, you are on a modern browser and operating system.
 
-On all operating systems that it is using the 
+## workaround for window
 
-    import {CountryFlag} from 'country-flag';
+if it does look like "CH", I'm sorry that you are on window, that doesn't display country codes natively. 
 
-    <CountryFlag country="CH" title="Switzerland"/>
+In that case, it loads a special font that does display the flag properly
+
+
+on your react project:
+
+
+    import CountryFlag from 'react-emoji-flag';
+
+
+    <CountryFlag countryCode="CH" title="Switzerland"/> 
+
+
+## inspiration and technical explanations
+
+https://github.com/talkjs/country-flag-emoji-polyfill
