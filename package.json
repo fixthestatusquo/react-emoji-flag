@@ -1,6 +1,6 @@
 {
   "name": "react-emoji-flag",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "type": "module",
   "source": "src/index.js",
   "exports": {
@@ -10,14 +10,12 @@
   "publishConfig": {
     "source": "src/index.js",
     "main": "dist/index.js"
-
   },
   "main": "src/index.js",
   "module": "dist/index.module.js",
   "unpkg": "dist/index.umd.js",
   "scripts": {
-"build" : "microbundle --no-compress --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx",
-
+    "build": "microbundle --no-compress --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx",
     "build:noparam": "microbundle",
     "dev": "microbundle watch --jsx React.createElement --jsxFragment React.Fragment --jsxImportSource react --globals react/jsx-runtime=jsx"
   },
