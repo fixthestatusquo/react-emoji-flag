@@ -1,2 +1,2 @@
-console.log("test");
+const t="https://country-flag.proca.app/font/TwemojiCountryFlags.woff2",n=()=>{React.useEffect(()=>`<style>\n@font-face {\n  font-family: 'Twemoji Country Flags';\n  unicode-range: U+1F1E6-1F1FF, U+1F3F4, U+E0062-E0063, U+E0065, U+E0067, U+E006C, U+E006E, U+E0073-E0074, U+E0077, U+E007F;\n  src: url(${t}) format('woff2');\n}\n\n.country-flag {\n  fontFamily: "'Twemoji Country Flags'"\n}\n</style>`,[t])},o=(t,n)=>{let o="";return t&&"ZZ"!==t.toUpperCase()?(t.toUpperCase().split("").forEach(t=>o+=String.fromCodePoint(t.charCodeAt(0)+127397)),o):""},e=t=>{n();const o=emoji(t.country);return h("span",{className:"country-flag",title:t.title||t.country},o)};export{e as CountryFlag,o as flag,n as useCountryFlag};
 //# sourceMappingURL=index.modern.js.map

@@ -11,8 +11,8 @@
       "module": "dist/index.module.js",
       "unpkg": "dist/index.umd.js",
       "scripts": {
-            "build": "microbundle",
-            "dev": "microbundle watch"
+            "build": "microbundle --globals react=React",
+            "dev": "microbundle watch --globals react=React"
       },
       "repository": {
             "type": "git",
