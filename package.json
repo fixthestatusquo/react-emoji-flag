@@ -1,6 +1,6 @@
 {
   "name": "react-emoji-flag",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "module",
   "source": "src/index.js",
   "exports": {
@@ -32,9 +32,6 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fixthestatusquo/react-emoji-flag.git"
-  },
-  "peerDependencies": {
-    "react": "^18.2.0"
   },
   "bugs": {
     "url": "https://github.com/fixthestatusquo/react-emoji-flag/issues"
