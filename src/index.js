@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useEffect} from "react";
 const fontUrl = "https://country-flag.proca.app/font/TwemojiCountryFlags.woff2";
 const fontName = "countryFlags";
+const className = "country-flag";
 let hasEffectRun = false;
 
 
@@ -9,17 +10,20 @@ const nativeFlag = () => {
   return userAgent.indexOf("Win") === -1;
 }
 
-export const useCountryFlag = (options) => {
+
+export function useCountryFlag (options)  {
+  
   React.useEffect(() => {
     if (hasEffectRun) {
       // Run the effect logic only once
       return;
     }
+ 
+    const cn = options?.className || className;   
     hasEffectRun = true;
-    const css = `.${options.className} {font-family: "'${fontName}'"}`;
+    const css = `.${cn} {font-family: "${fontName}"}`;
 
     const loadFont = async () => {
-
       const customFont = new FontFace(
         fontName,
         "url(" + fontUrl + ")",
@@ -48,6 +52,7 @@ export const useCountryFlag = (options) => {
     style.id = "react-emoji-flag";
     document.head.appendChild(style);
   }, []);
+
 };
 
 export const flag = (isoCode) => {
@@ -60,12 +65,11 @@ export const flag = (isoCode) => {
 };
 
 const CountryFlag = (props) => {
-  const className = props.className || "country-flag";
-  useCountryFlag({className:className}); // load the font and create style if needed
-  const d = flag(props.countryCode);
+  const cn = props.className || className;
+  useCountryFlag({className:cn}); // load the font and create style if needed
   return (
-    <span className={className} title={props.title || props.countryCode}>
-      {d}
+    <span className={cn} title={props.title || props.countryCode}>
+      {flag(props.countryCode)}
     </span>
   );
 };

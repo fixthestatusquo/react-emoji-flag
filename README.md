@@ -21,6 +21,16 @@ on your react project:
 
     <CountryFlag countryCode="CH" title="Switzerland"/> 
 
+### alternate usage
+
+    import { useCountryFlag, flag} from "react-emoji-flag";
+
+   const YourComponent = (props) => {
+      useCountryFlag({ className: "country-flag" });
+
+
+     return (<div class="country-flag">{flag ("CH")} do not forget to call useCountryFlag and have the class set in a dom parent</div>);
+   }
 
 ## inspiration and technical explanations
 
